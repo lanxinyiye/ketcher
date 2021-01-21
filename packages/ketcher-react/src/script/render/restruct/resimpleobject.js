@@ -138,12 +138,14 @@ ReSimpleObject.prototype.getReferencePoints = function () {
   switch (this.item.mode) {
     case 'ellipse': {
       const p0 = this.item.pos[0]
-      const rad = Vec2.dist(this.item.pos[0], this.item.pos[1])
+      const rad = Vec2.diff(this.item.pos[1], p0)
+      const rx = rad.x/2
+      const ry = rad.y/2
       refPoints.push(
-        new Vec2(p0.x - rad.x, p0.y),
-        new Vec2(p0.x, p0.y - rad.y),
-        new Vec2(p0.x + rad.x, p0.y),
-        new Vec2(p0.x, p0.y + rad.y)
+        new Vec2(p0.x - rx, p0.y),
+        new Vec2(p0.x, p0.y - ry),
+        new Vec2(p0.x + rx, p0.y),
+        new Vec2(p0.x, p0.y + ry)
       )
 
       break
@@ -193,10 +195,12 @@ ReSimpleObject.prototype.highlightPath = function (render) {
   //TODO: It seems that inheritance will be the better approach here
   switch (this.item.mode) {
     case 'ellipse': {
-      const rad = Vec2.dist(point[0], point[1])
+      const rad = Vec2.diff(point[1], point[0])
+      const rx = rad.x/2
+      const ry = rad.y/2
       path.push(
-        render.paper.ellipse(point[0].x, point[0].y, rad.x + s / 8, rad.y + s / 8),
-        render.paper.ellipse(point[0].x, point[0].y, rad.x - s / 8, rad.y + s / 8)
+        render.paper.ellipse(point[0].x, point[0].y, Math.abs(rx) + s / 8, Math.abs(ry) + s / 8),
+        render.paper.ellipse(point[0].x, point[0].y, Math.abs(rx) - s / 8, Math.abs(ry) - s / 8)
       )
       break
     }
