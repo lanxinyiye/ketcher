@@ -113,9 +113,9 @@ const toolActions = {
     title: 'Attachment Point Tool',
     action: { tool: 'apoint' }
   },
-  'shape-circle': {
-    title: 'Shape Circle',
-    action: { tool: 'simpleobject', opts: 'circle' }
+  'shape-ellipse': {
+    title: 'Shape Ellipse',
+    action: { tool: 'simpleobject', opts: 'ellipse' }
   },
   'shape-rectangle': {
     title: 'Shape Rectangle',

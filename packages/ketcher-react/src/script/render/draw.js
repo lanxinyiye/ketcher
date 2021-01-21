@@ -29,9 +29,9 @@ function rectangle(paper, pos, options) {
   )
 }
 
-function circle(paper, pos, options) {
+function ellipse(paper, pos, options) {
   const rad = Vec2.dist(pos[0], pos[1])
-  return paper.circle(pos[0].x, pos[0].y, rad)
+  return paper.ellipse(pos[0].x, pos[0].y, rad.x, rad.y)
 }
 
 function polyline(paper, pos, options) {
@@ -405,7 +405,7 @@ export default {
   selectionRectangle,
   selectionPolygon,
   selectionLine,
-  circle,
+  ellipse,
   rectangle,
   polyline,
   line

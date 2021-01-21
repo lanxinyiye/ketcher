@@ -1105,7 +1105,7 @@ SimpleObjectResize.prototype.execute = function (restruct) {
   const item = struct.simpleObjects.get(id)
   const anchor = this.data.anchor
 
-  if (item.mode === 'circle') {
+  if (item.mode === 'ellipse') {
     const previousPos1 = item.pos[1].get_xy0()
     item.pos[1].x = current.x
     item.pos[1].y = current.y

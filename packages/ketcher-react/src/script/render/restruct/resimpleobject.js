@@ -41,7 +41,7 @@ ReSimpleObject.prototype.calcDistance = function (p, s) {
   const pos = item.pos
 
   switch (mode) {
-    case 'circle': {
+    case 'ellipse': {
       const dist1 = Vec2.dist(point, pos[0])
       const dist2 = Vec2.dist(pos[0], pos[1])
       dist = Math.max(dist1, dist2) - Math.min(dist1, dist2)
@@ -136,14 +136,14 @@ ReSimpleObject.prototype.getReferencePointDistance = function (p) {
 ReSimpleObject.prototype.getReferencePoints = function () {
   const refPoints = []
   switch (this.item.mode) {
-    case 'circle': {
+    case 'ellipse': {
       const p0 = this.item.pos[0]
       const rad = Vec2.dist(this.item.pos[0], this.item.pos[1])
       refPoints.push(
-        new Vec2(p0.x - rad, p0.y),
-        new Vec2(p0.x, p0.y - rad),
-        new Vec2(p0.x + rad, p0.y),
-        new Vec2(p0.x, p0.y + rad)
+        new Vec2(p0.x - rad.x, p0.y),
+        new Vec2(p0.x, p0.y - rad.y),
+        new Vec2(p0.x + rad.x, p0.y),
+        new Vec2(p0.x, p0.y + rad.y)
       )
 
       break
@@ -192,11 +192,11 @@ ReSimpleObject.prototype.highlightPath = function (render) {
 
   //TODO: It seems that inheritance will be the better approach here
   switch (this.item.mode) {
-    case 'circle': {
+    case 'ellipse': {
       const rad = Vec2.dist(point[0], point[1])
       path.push(
-        render.paper.circle(point[0].x, point[0].y, rad + s / 8),
-        render.paper.circle(point[0].x, point[0].y, rad - s / 8)
+        render.paper.ellipse(point[0].x, point[0].y, rad.x + s / 8, rad.y + s / 8),
+        render.paper.ellipse(point[0].x, point[0].y, rad.x - s / 8, rad.y + s / 8)
       )
       break
     }
@@ -351,8 +351,8 @@ ReSimpleObject.prototype.show = function (restruct, id, options) {
 function generatePath(mode, paper, pos, options) {
   let path = null
   switch (mode) {
-    case 'circle': {
-      path = draw.circle(paper, pos, options)
+    case 'ellipse': {
+      path = draw.ellipse(paper, pos, options)
       break
     }
     case 'rectangle': {
